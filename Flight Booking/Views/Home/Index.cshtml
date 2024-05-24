@@ -1,0 +1,267 @@
+﻿@model FlightBooking.Models.FBVM
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Icons in booking form to be replaced -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.4.0/fonts/remixicon.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="~/css/site.css" />
+    <title>Flight Booking</title>
+</head>
+
+<body>
+    <nav>
+        <!-- <div class="nav__logo">Flight Booking</div> -->
+        <div class="newtons-cradle">
+            <div class="newtons-cradle__dot"></div>
+            <div class="newtons-cradle__dot"></div>
+            <div class="newtons-cradle__dot"></div>
+            <div class="newtons-cradle__dot"></div>
+        </div>
+
+        <ul class="nav__links">
+            <li class="link"><a href="#home" id="home-link">Home</a></li>
+            <li class="link"><a href="#book" id="book-link">Book</a></li>
+            <li class="link"><a href="#about" id="about-link">About</a></li>
+            <li class="link"><a href="#contact" id="contact-link">Contact</a></li>
+            <a asp-controller="Cancel" asp-action="Index" class="link">My Bookings</a>
+        </ul>
+
+        <ul class="Log_in">
+            @if (Model.UserId == "null")
+            {
+                <a asp-controller="Login" asp-action="Index" class="btn">Log In</a>
+                <a asp-controller="SignUp" asp-action="Index" class="btn">Sign Up</a>
+            }
+            else
+            {
+                <label>Welcome! @Model.UserId</label>
+                //logout btn
+                <a asp-controller="Home" asp-action="Logout" class="btn">Logout</a>
+            }
+
+        </ul>
+
+        <!-- <ul class="Log_out">
+            <button class="loutbtn" id="logoutBtn">Log out</button>
+        </ul> -->
+
+    </nav>
+    <header class="section__container header__container" id="home">
+        <h1 class="section__header">Find And Book<br />A Great Experience</h1>
+        <!-- <img src="assets/header.jpg" alt="header" /> -->
+    </header>
+    <div class="header_image">
+        <img src="~/images/header.jpg" alt="header" />
+    </div>
+
+    <section class="section__container booking__container" id="book">
+            <div class="booking__nav">
+            <span class="class-option air-india">Air India</span>
+            <span class="class-option indigo">IndiGo</span>
+            <span class="class-option vistara">Vistara</span>
+        </div>
+
+
+        <div id="formContainer" class="form-container">
+            <form asp-controller="Home" asp-action="Search">
+                <div class="form__group">
+                    <span><i class="ri-map-pin-line"></i></span>
+                    <div class="input__content">
+                        <div class="input__group">
+                            <select asp-items="@ViewBag.AirportList" id="departureap" asp-for="FbookingBookMstPsObj.DepartureAp" required>
+                                <option value="" selected disabled>-- select --</option>
+                            </select>
+                            @*<label for="departureInput">Departure</label>*@
+                        </div>
+                        <p>Departure Locations</p>
+                    </div>
+                </div>
+
+
+                <div class="form__group">
+                    <span><i class="ri-map-pin-line"></i></span>
+                    <div class="input__content">
+                        <div class=" input__group">
+                            <select asp-items="@ViewBag.AirportList" id="destinationap" asp-for="FbookingBookMstPsObj.DestinationAp" required>
+                                <option value="" selected disabled>-- select --</option>
+                            </select>
+                            @*<label for="destinationInput">Destination</label>*@
+                        </div>
+                        <p>Destination Locations</p>
+                    </div>
+                </div>
+
+
+
+                <div class="form__group">
+                    <span><i class="ri-user-3-line"></i></span>
+                    <div class="input__content">
+                        <div class="input__group">
+                            <input type="number" min="0" />
+                            <label>Travellers</label>
+                        </div>
+                        <p>Add guests</p>
+                    </div>
+                </div>
+
+                <div class="form__group">
+                    <span><i class="ri-calendar-line"></i></span>
+                    <div class="input__content">
+                        <div class="input__group">
+                            <input type="date" id="Journeydate" asp-for="FbookingBookMstPsObj.JourneyDate" required />
+                            <label for="departureDate">Departure</label>
+                        </div>
+                        <p>Add date</p>
+                    </div>
+                </div>
+
+                <div class="form__group">
+                    <span><i class="ri-calendar-line"></i></span>
+                    <div class="input__content">
+                        <div class="input__group">
+                            <input type="date" id="returnDate" />
+                            <label for="returnDate">Return</label>
+                        </div>
+                        <p>Add date</p>
+                    </div>
+                </div>
+               <button class="btn"><i class="ri-search-line"></i></button>
+            </form>
+        </div>
+
+
+        <div class="bookingSummary">
+            <h1>Booking Summary</h1>
+            <div class="summaryTable">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Flight ID</th>
+                            <th>Departure</th>
+                            <th>Destination</th>                            
+                            <th>Departure Date</th>
+                            <th>Price</th>
+                            <th>Journey Duration</th>
+
+                            <th>Action</th>
+                        </tr>
+
+                        @foreach (var item in Model.FbookingBookMstPsList)
+                        {
+                                                        
+                             <tr>
+                                 <td>@item.FlightId</td>
+                                 <td>@item.DepartureAp</td>
+                                 <td>@item.DestinationAp</td>                                          
+                                 <td>@item.JourneyDate</td>
+                                 <td>@item.Price</td>
+                                 <td>@item.JourneyDuration</td>
+                                 <td>
+                                     <a asp-controller="Home" asp-action="SearchFlights"  class="book-btn">Book</a>
+
+                                 </td>
+
+                             </tr>
+
+                        }
+                    </thead>
+                           @*<tbody id="selectedOptions"></tbody>*@
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <section class="section__container about__container" id="about">
+        <!-- About section content -->
+        <p class="subheader">ABOUT US</p>
+        <h2 class="section__header">Get to know us better</h2>
+        <p class="description">
+            Discover who we are, what we stand for, and how we can help you with your
+            travel needs.
+        </p>
+        <div class="about__grid">
+            <div class="about__content">
+                <h4>Our Mission</h4>
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente
+                    porro cumque in nisi tenetur saepe amet perspiciatis. Odit aut labore
+                    optio? Error id numquam earum quos quia, inventore harum aliquid.
+                </p>
+                <h4>Our Vision</h4>
+                <p>
+                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repellendus,
+                    unde consequatur consequuntur pariatur omnis quis voluptatem. Beatae
+                    animi repudiandae, minima iste minus nisi impedit similique atque sed
+                    repellat veritatis quibusdam!
+                </p>
+                <h4>Our Values</h4>
+                <p>
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nesciunt non
+                    consequatur tempora quod aperiam quae architecto numquam sunt, eveniet
+                    officia maxime ad veniam ipsam quasi deserunt cumque aliquam odio
+                    possimus?
+                </p>
+            </div>
+            <div class="about__image">
+                <img src="~/images/plan-1.jpg" alt="about" />
+                <img src="~/images/plan-2.jpg" alt="about" />
+                <img src="~/images/plan-3.jpg" alt="about" />
+            </div>
+        </div>
+
+    </section>
+
+
+
+    <footer class="footer">
+        <div class="section__container footer__container" id="contact">
+            <div class="footer__col">
+                <h3>Flight</h3>
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus odio expedita porro fugit et,
+                    cumque assumenda
+                    amet possimus dolorum ex illo, doloremque excepturi commodi molestiae rem tempora dicta aperiam
+                    quidem.
+                </p>
+                <p>
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatibus laudantium, blanditiis iste
+                    debitis
+                    minima ipsam perspiciatis iusto ipsa voluptatum error quaerat vel assumenda nemo facilis cumque
+                    omnis nihil
+                    molestiae numquam.
+                </p>
+            </div>
+            <div class="footer__col">
+                <h4>INFORMATION</h4>
+                <p>Home</p>
+                <p>About</p>
+
+            </div>
+            <div class="footer__col">
+                <h4>CONTACT</h4>
+                <p>+91 9887734561</p>
+                <p>PranshuSahay@gmail.com</p>
+            </div>
+        </div>
+        <div class="section__container footer__bar">
+            <p>Copyright © Pranshu Sahay</p>
+            <div class="socials">
+                <a href="https://facebook.com/your-facebook-profile"><span><i class="ri-facebook-fill"></i></span></a>
+                <a href="https://twitter.com/your-twitter-profile"><span><i class="ri-twitter-fill"></i></span></a>
+                <a href="https://instagram.com/your-instagram-profile"><span><i class="ri-instagram-line"></i></span></a>
+                <a href="https://www.youtube.com/"><span><i class="ri-youtube-fill"></i></span></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="~/js/test.js"></script>
+</body>
+
+</html>
