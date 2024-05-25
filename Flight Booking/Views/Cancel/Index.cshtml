@@ -1,6 +1,5 @@
-﻿@{
-    Layout = null;
-}
+﻿@model FlightBooking.Models.FBVM
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -16,24 +15,44 @@
         <table>
             <thead>
                 <tr>
-                    <th>User Id</th>
-                    <th>Username</th>
+                    <th>User Id</th> 
+                    <th>Username</th> 
+                    <th>Flight Id</th> 
                     <th>Phone Number</th>
                     <th>Email Id</th>
                     <th>DOB</th>
+                    <th>Departure Location</th>
                     <th>Destination Location</th>
                     <th>Travellers</th>
                     <th>Departure Date</th>
-                    <th>Return Date</th>
+                    <th>Price</th>
                     <th>Action</th>
                 </tr>
-            </thead>
-            <tbody>
-                <!-- Dynamically populated rows will appear here -->
-            </tbody>
-        </table>
-    </div>
 
-    <script src="~/js/cancel.js"></script>
-</body>
+                @foreach (var item in Model.FbookingFinalPsList)
+                {
+                    <tr>
+                        <td>@item.UserId</td>
+                        <td>@item.Username</td>
+                        <td>@item.FlightId</td>
+                        <td>@item.PhoneNo</td>
+                        <td>@item.Email</td>
+                        <td>@item.Dob</td>
+                        <td>@item.DepartureAp</td>
+                        <td>@item.DestinationAp/td>
+                        <td>@item.Traveller</td>
+                        <td>@item.JourneyDate</td>
+                        <td>@item.Price</td>
+                    </tr>
+                }
+                </thead>
+                <tbody>
+                    <!-- Dynamically populated rows will appear here -->
+                </tbody>
+            </table>
+        </div>
+
+        <script src="~/js/cancel.js"></script>
+    </body>
 </html>
+

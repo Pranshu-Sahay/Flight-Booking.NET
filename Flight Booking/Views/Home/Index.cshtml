@@ -34,18 +34,16 @@
         </ul>
 
         <ul class="Log_in">
-            @if (Model.UserId == "null")
+            @if (Model.Username == "null")
             {
                 <a asp-controller="Login" asp-action="Index" class="btn">Log In</a>
                 <a asp-controller="SignUp" asp-action="Index" class="btn">Sign Up</a>
             }
             else
             {
-                <label>Welcome! @Model.UserId</label>
-                //logout btn
+                <label>Welcome! @Model.Username</label>
                 <a asp-controller="Home" asp-action="Logout" class="btn">Logout</a>
             }
-
         </ul>
 
         <!-- <ul class="Log_out">
@@ -62,15 +60,14 @@
     </div>
 
     <section class="section__container booking__container" id="book">
-            <div class="booking__nav">
+        <div class="booking__nav">
             <span class="class-option air-india">Air India</span>
             <span class="class-option indigo">IndiGo</span>
             <span class="class-option vistara">Vistara</span>
         </div>
 
-
         <div id="formContainer" class="form-container">
-            <form asp-controller="Home" asp-action="Search">
+            <form asp-controller="Home" asp-action="SearchFlights">
                 <div class="form__group">
                     <span><i class="ri-map-pin-line"></i></span>
                     <div class="input__content">
@@ -79,6 +76,7 @@
                                 <option value="" selected disabled>-- select --</option>
                             </select>
                             @*<label for="departureInput">Departure</label>*@
+
                         </div>
                         <p>Departure Locations</p>
                     </div>
@@ -97,8 +95,6 @@
                         <p>Destination Locations</p>
                     </div>
                 </div>
-
-
 
                 <div class="form__group">
                     <span><i class="ri-user-3-line"></i></span>
@@ -132,10 +128,11 @@
                         <p>Add date</p>
                     </div>
                 </div>
-               <button class="btn"><i class="ri-search-line"></i></button>
+                <button type="submit" class="btn"><i class="ri-search-line"></i></button>
+                @*<button class="btn"><i class="ri-search-line"></i></button>*@
+                @*<a asp-controller="Home" asp-action="SearchFlights" class="btn">Search</a>*@
             </form>
         </div>
-
 
         <div class="bookingSummary">
             <h1>Booking Summary</h1>
@@ -145,38 +142,49 @@
                         <tr>
                             <th>Flight ID</th>
                             <th>Departure</th>
-                            <th>Destination</th>                            
+                            <th>Destination</th>
                             <th>Departure Date</th>
                             <th>Price</th>
                             <th>Journey Duration</th>
-
                             <th>Action</th>
                         </tr>
 
                         @foreach (var item in Model.FbookingBookMstPsList)
                         {
-                                                        
-                             <tr>
-                                 <td>@item.FlightId</td>
-                                 <td>@item.DepartureAp</td>
-                                 <td>@item.DestinationAp</td>                                          
-                                 <td>@item.JourneyDate</td>
-                                 <td>@item.Price</td>
-                                 <td>@item.JourneyDuration</td>
-                                 <td>
-                                     <a asp-controller="Home" asp-action="SearchFlights"  class="book-btn">Book</a>
 
-                                 </td>
+                            <tr>
+                                <td>@item.FlightId</td>
+                                <td>@item.DepartureAp</td>
+                                <td>@item.DestinationAp</td>
+                                <td>@item.JourneyDate</td>
+                                <td>@item.Price</td>
+                                <td>@item.JourneyDuration</td>
+                                <td class="text-center">
+                                    <form asp-controller="Home" asp-action="BookFlight">
+                                        <input type="hidden" name="flightId" value="@item.FlightId" asp-for="@Model.FlightId" />
+                                        <button type="submit" class="book-btn">Book</button>
+                                    </form>
+                                </td>
 
-                             </tr>
+                            </tr>
 
                         }
                     </thead>
-                           @*<tbody id="selectedOptions"></tbody>*@
+                    @*<tbody id="selectedOptions"></tbody>*@
                 </table>
             </div>
         </div>
     </section>
+
+    <!-- Your existing HTML code -->
+
+    @if (ViewBag.SuccessMessage != null)
+    {
+        <script>alert('@Html.Raw(ViewBag.SuccessMessage)');</script>
+    }
+
+    <!-- End of your HTML code -->
+
 
     <section class="section__container about__container" id="about">
         <!-- About section content -->

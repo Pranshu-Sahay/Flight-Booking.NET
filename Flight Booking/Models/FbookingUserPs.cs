@@ -5,8 +5,7 @@ namespace FlightBooking.Models
 {
     public partial class FbookingUserPs
     {
-        internal object password;
-
+        //internal object password;
         public string UserId { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }

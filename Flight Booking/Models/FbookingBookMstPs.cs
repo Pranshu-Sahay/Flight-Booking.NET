@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FlightBooking.Models
 {
@@ -11,6 +12,6 @@ namespace FlightBooking.Models
         public DateTime? JourneyDate { get; set; }
         public decimal? Price { get; set; }
         public decimal? JourneyDuration { get; set; }
-        
-    }
+     
+     }
 }

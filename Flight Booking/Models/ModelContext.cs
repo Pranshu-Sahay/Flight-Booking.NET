@@ -20,6 +20,7 @@ namespace FlightBooking.Models
         public virtual DbSet<FbookingDestMstPs> FbookingDestMstPs { get; set; }
         public virtual DbSet<FbookingUserDltsPs> FbookingUserDltsPs { get; set; }
         public virtual DbSet<FbookingUserPs> FbookingUserPs { get; set; }
+        public virtual DbSet<FbookingFinalPs> FbookingFinalPs { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -65,23 +66,16 @@ namespace FlightBooking.Models
                     .IsUnique();
 
                 entity.Property(e => e.FlightId)
-                    .HasColumnName("CLASS_ID")
-                    .HasColumnType("varchar2")
-                    .HasMaxLength(30);
+                    .HasColumnName("FLIGHT_ID");
 
                 entity.Property(e => e.DepartureAp)
-                    .HasColumnName("DEPARTURE_AP")
-                    .HasColumnType("varchar2")
-                    .HasMaxLength(30);
+                    .HasColumnName("DEPARTURE_AP");
 
                 entity.Property(e => e.DestinationAp)
-                    .HasColumnName("DESTINATION_AP")
-                    .HasColumnType("varchar2")
-                    .HasMaxLength(30);
+                    .HasColumnName("DESTINATION_AP");
 
                 entity.Property(e => e.JourneyDate)
-                    .HasColumnName("JOURNEY_DATE")
-                    .HasColumnType("date");
+                    .HasColumnName("JOURNEY_DATE");
 
                 entity.Property(e => e.Price).HasColumnName("PRICE");
 
@@ -166,8 +160,58 @@ namespace FlightBooking.Models
 
                 entity.Property(e => e.Username)
                     .HasColumnName("USERNAME")
-                    .HasColumnType("varchar2")
-                    .HasMaxLength(30);
+                    .HasColumnType("varchar2");
+            });
+
+
+
+            modelBuilder.Entity<FbookingFinalPs>(entity =>
+            {
+
+                entity.HasKey(e => e.UserId);
+
+                entity.ToTable("FBOOKING_FINAL_PS", "IUSF");
+
+                entity.HasIndex(e => e.UserId)
+                    .HasName("FBOOKING_FINAL_PS")
+                    .IsUnique();
+
+
+                entity.Property(e => e.UserId)
+                   .HasColumnName("USER_ID")
+                   .HasColumnType("varchar2");
+
+
+                entity.Property(e => e.Username)
+                   .HasColumnName("USERNAME")
+                   .HasColumnType("varchar2");
+
+                entity.Property(e => e.FlightId)
+                    .HasColumnName("FLIGHT_ID");
+
+                entity.Property(e => e.PhoneNo).HasColumnName("PHONE_NO");
+
+                entity.Property(e => e.Email)
+                   .HasColumnName("EMAIL")
+                   .HasColumnType("varchar2")
+                   .HasMaxLength(100);
+
+                entity.Property(e => e.Dob)
+                   .HasColumnName("DOB")
+                   .HasColumnType("date");
+
+                entity.Property(e => e.DepartureAp)
+                   .HasColumnName("DEPARTURE_AP");
+
+                entity.Property(e => e.DestinationAp)
+                   .HasColumnName("DESTINATION_AP");
+
+                entity.Property(e => e.Traveller).HasColumnName("TRAVELLER");
+
+                entity.Property(e => e.JourneyDate)
+                   .HasColumnName("JOURNEY_DATE");
+
+                entity.Property(e => e.Price).HasColumnName("PRICE");
             });
         }
     }

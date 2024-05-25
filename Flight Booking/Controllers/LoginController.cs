@@ -25,11 +25,11 @@ namespace FlightBooking.Controllers
         {
             try
             {
-                var enteredpassword = obj.FbookingUserPsObj.password;
+                var enteredpassword = obj.FbookingUserPsObj.Password;
                 var exists = _context.FbookingUserPs.Any(x => x.UserId == obj.FbookingUserPsObj.UserId);
                 if (exists)
                 {
-                    var registeredpass = _context.FbookingUserPs.SingleOrDefault(x => x.UserId == obj.FbookingUserPsObj.UserId).password;
+                    var registeredpass = _context.FbookingUserPs.SingleOrDefault(x => x.UserId == obj.FbookingUserPsObj.UserId).Password;
                     if (enteredpassword == registeredpass)
                     {
                         HttpContext.Session.SetString("UserId", obj.FbookingUserPsObj.UserId);
@@ -50,7 +50,7 @@ namespace FlightBooking.Controllers
                 //}
             }
 
-            catch (Exception)
+            catch (Exception ex)
             {
                 return View("Index");
             }

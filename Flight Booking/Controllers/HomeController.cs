@@ -22,30 +22,22 @@ namespace FlightBooking.Controllers
 
         public IActionResult Index(FBVM Obj)
         {
-
-            try
-            {
-                Obj.FbookingBookMstPsList = _context.FbookingBookMstPs.Where(x => x.FlightId == Obj.FbookingBookMstPsObj.FlightId && x.DepartureAp == Obj.FbookingBookMstPsObj.DepartureAp && x.DestinationAp == Obj.FbookingBookMstPsObj.DestinationAp && x.JourneyDate == Obj.FbookingBookMstPsObj.JourneyDate && x.Price == Obj.FbookingBookMstPsObj.Price && x.JourneyDuration == Obj.FbookingBookMstPsObj.JourneyDuration).ToList();
-                
-            }
-            catch (Exception)
-            {
-
-            }
-
-           
             var UserId = HttpContext.Session.GetString("UserId");
-            //FBVM Obj = new FBVM();
             if (UserId == null)
             {
                 Obj.UserId = "null";
+                Obj.Username = "null";
             }
             else
             {
                 Obj.UserId = UserId;
+                Obj.Username = _context.FbookingUserPs.SingleOrDefault(x => x.UserId == UserId).Username;
                 ViewBag.AirportList = GetDestinations();
             }
-
+            if (Obj.FbookingBookMstPsList == null)
+            {
+                Obj.FbookingBookMstPsList = new List<FbookingBookMstPs>();
+            }
             
             return View(Obj);
         }
@@ -64,39 +56,66 @@ namespace FlightBooking.Controllers
 
         public IActionResult SearchFlights(FBVM Obj)
         {
-            List<FbookingBookMstPs> FlightList = new List<FbookingBookMstPs>();
-
             try
             {
-                Obj.FbookingBookMstPsList = _context.FbookingBookMstPs.Where(x => x.FlightId == Obj.FbookingBookMstPsObj.FlightId && x.DepartureAp == Obj.FbookingBookMstPsObj.DepartureAp && x.DestinationAp == Obj.FbookingBookMstPsObj.DestinationAp && x.JourneyDate == Obj.FbookingBookMstPsObj.JourneyDate && x.Price == Obj.FbookingBookMstPsObj.Price && x.JourneyDuration == Obj.FbookingBookMstPsObj.JourneyDuration).ToList();
-                Obj.FbookingBookMstPsList = FlightList;
+                    Obj.FbookingBookMstPsList = _context.FbookingBookMstPs.
+                                                Where(x => x.DepartureAp == Obj.FbookingBookMstPsObj.DepartureAp && x.DestinationAp == Obj.FbookingBookMstPsObj.DestinationAp
+                                                && x.JourneyDate == Obj.FbookingBookMstPsObj.JourneyDate).ToList();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
             }
-
-
-            return RedirectToAction("Index", "Home", new
-            { Flight = FlightList });
+            return View("Index",Obj);
+            //return RedirectToAction("Index", "Home", new{ Flight = FlightList });
         }
 
 
-        // Function to check if user is authenticated
         public bool IsAuthenticated(string username, string password)
         {
             try
             {
-                // Check if the user is authenticated by querying the database
+               
                 var user = _context.FbookingUserPs.FirstOrDefault(u => u.Username == username && u.Password == password);
-                return user != null; // Return true if user exists, false otherwise
+                return user != null; 
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Error checking authentication: " + ex.Message);
-                return false; // Return false in case of error
+                return false; 
             }
+        }      
+        
+
+
+
+        public IActionResult BookFlight(FBVM Obj)
+        {
+            var username = HttpContext.Session.GetString("Username");         
+            var user = _context.FbookingUserPs.FirstOrDefault(u => u.Username == username);
+            if (user == null)
+            {               
+                return RedirectToAction("Index");
+            }
+
+           
+            string userId = user.UserId;            
+            var DtlObj = _context.FbookingBookMstPs.SingleOrDefault(x=>x.FlightId== Obj.FlightId);            
+            //string message = $"Congratulations {userId}! Your ticket has been booked with {flightDetails}. <a href='/MyBookings'>Go To My Bookings</a>";
+
+            
+
+            string SuccessMessage = "SUCCESS";
+
+            
+            return RedirectToAction("Index",new { message = SuccessMessage});
         }
+     
+        private string GetFlightDetails(string flightId)
+        {
+            
+            return $"Flight ID: {flightId}"; 
+        }
+
     }
         
     

@@ -23,9 +23,13 @@ namespace FlightBooking.Models
         public FbookingBookDltsPs FbookingBookDltsPsObj { get; set; }
         public List<FbookingBookDltsPs> FbookingBookDltsPsList { get; set; }
 
+        public FbookingFinalPs FbookingFinalPsObj{ get; set; }
+        public List<FbookingFinalPs> FbookingFinalPsList { get; set; }
+
         public string UserId { get; set; }
 
-        //public string Username { get; set; }
+        public string Username { get; set; }
 
+        public string FlightId { get; set; }
     }
 }
