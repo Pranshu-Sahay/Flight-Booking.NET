@@ -1,50 +1,59 @@
-﻿body {
+﻿body 
+{
+    background-image: url('https://images.unsplash.com/photo-1499346030926-9a72daac6c63?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+    background-size: cover;
+    background-position: center;
     font-family: Arial, sans-serif;
-    margin: 0;
+    margin: 0; 
     padding: 0;
 }
 
-.container {
+.container 
+{
     max-width: 800px;
-    margin: 20px auto;
-    padding: 0 20px;
+    margin: 0 auto;
+    padding: 20px;
 }
 
-h1 {
-    text-align: center;
-    margin-bottom: 20px;
-}
 
 table {
     width: 100%;
     border-collapse: collapse;
+    margin-top: 20px;
 }
 
-table,
-th,
-td {
-    border: 1px solid #ddd;
-}
-
-th,
-td {
-    padding: 8px;
-    text-align: left;
-}
 
 th {
     background-color: #f2f2f2;
+    padding: 10px;
+    text-align: left;
 }
 
-.cancel-btn {
-    background-color: #f44336;
+
+td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+/*.book-btn {
+    backg/* Style for the cancel button */
+/*round-color: #ff6666;
     color: white;
-    padding: 6px 12px;
     border: none;
-    border-radius: 4px;
+    padding: 5px 10px;
     cursor: pointer;
+}*/
+
+    /* Style for the cancel button on hover */
+    /*.book-btn:hover {
+        background-color: #ff4d4d;
+    }*/
+
+/* Style for the status */
+/*span.status-active {
+    color: green;
 }
 
-    .cancel-btn:hover {
-        background-color: #d32f2f;
-    }
+span.status-inactive {
+    color: red;
+}*/

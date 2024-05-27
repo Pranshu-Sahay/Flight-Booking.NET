@@ -75,7 +75,8 @@ namespace FlightBooking.Models
                     .HasColumnName("DESTINATION_AP");
 
                 entity.Property(e => e.JourneyDate)
-                    .HasColumnName("JOURNEY_DATE");
+                    .HasColumnName("JOURNEY_DATE")
+                    .HasColumnType("date"); 
 
                 entity.Property(e => e.Price).HasColumnName("PRICE");
 
@@ -168,14 +169,17 @@ namespace FlightBooking.Models
             modelBuilder.Entity<FbookingFinalPs>(entity =>
             {
 
-                entity.HasKey(e => e.UserId);
+                entity.HasKey(e => e.BookingId);
 
                 entity.ToTable("FBOOKING_FINAL_PS", "IUSF");
 
-                entity.HasIndex(e => e.UserId)
+                entity.HasIndex(e => e.BookingId)
                     .HasName("FBOOKING_FINAL_PS")
                     .IsUnique();
 
+
+                entity.Property(e => e.BookingId)
+                  .HasColumnName("BOOKING_ID");
 
                 entity.Property(e => e.UserId)
                    .HasColumnName("USER_ID")
@@ -212,6 +216,12 @@ namespace FlightBooking.Models
                    .HasColumnName("JOURNEY_DATE");
 
                 entity.Property(e => e.Price).HasColumnName("PRICE");
+
+                entity.Property(e => e.JourneyDuration).HasColumnName("JOURNEY_DURATION");
+
+                entity.Property(e => e.BookingStatus)
+                   .HasColumnName("BOOKING_STATUS");
+                   
             });
         }
     }

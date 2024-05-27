@@ -29,3 +29,4 @@ D:\Pranshu Sahay\Flight Booking\Flight Booking\obj\Debug\netcoreapp2.1\FlightBoo
 D:\Pranshu Sahay\Flight Booking\Flight Booking\obj\Debug\netcoreapp2.1\FlightBooking.dll
 D:\Pranshu Sahay\Flight Booking\Flight Booking\obj\Debug\netcoreapp2.1\FlightBooking.pdb
 D:\Pranshu Sahay\Flight Booking\Flight Booking\obj\Debug\netcoreapp2.1\FlightBooking.csproj.CopyComplete
+D:\Pranshu Sahay\Flight Booking\Flight Booking\obj\Debug\netcoreapp2.1\Razor\Views\Booking\Index.g.cshtml.cs

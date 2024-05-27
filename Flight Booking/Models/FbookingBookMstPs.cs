@@ -12,6 +12,17 @@ namespace FlightBooking.Models
         public DateTime? JourneyDate { get; set; }
         public decimal? Price { get; set; }
         public decimal? JourneyDuration { get; set; }
-     
-     }
+
+        [NotMapped]
+        public string Email { get; set; }
+
+        [NotMapped]
+        public decimal? PhoneNo { get; set; }
+
+        [NotMapped]
+        public decimal? Traveller { get; set; }
+
+        [NotMapped]
+        public string UserId { get; set; }
+    }
 }

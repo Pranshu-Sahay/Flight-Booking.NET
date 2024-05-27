@@ -58,9 +58,11 @@ namespace FlightBooking.Controllers
         {
             try
             {
-                    Obj.FbookingBookMstPsList = _context.FbookingBookMstPs.
-                                                Where(x => x.DepartureAp == Obj.FbookingBookMstPsObj.DepartureAp && x.DestinationAp == Obj.FbookingBookMstPsObj.DestinationAp
-                                                && x.JourneyDate == Obj.FbookingBookMstPsObj.JourneyDate).ToList();
+                Obj.FbookingBookMstPsList = _context.FbookingBookMstPs.
+                                            Where(x => x.DepartureAp == Obj.FbookingBookMstPsObj.DepartureAp && x.DestinationAp == Obj.FbookingBookMstPsObj.DestinationAp
+                                            && x.JourneyDate == Obj.FbookingBookMstPsObj.JourneyDate).ToList();
+
+                ViewBag.AirportList = GetDestinations();
             }
             catch (Exception ex)
             {
@@ -84,35 +86,9 @@ namespace FlightBooking.Controllers
                 return false; 
             }
         }      
-        
-
-
-
-        public IActionResult BookFlight(FBVM Obj)
-        {
-            var username = HttpContext.Session.GetString("Username");         
-            var user = _context.FbookingUserPs.FirstOrDefault(u => u.Username == username);
-            if (user == null)
-            {               
-                return RedirectToAction("Index");
-            }
-
-           
-            string userId = user.UserId;            
-            var DtlObj = _context.FbookingBookMstPs.SingleOrDefault(x=>x.FlightId== Obj.FlightId);            
-            //string message = $"Congratulations {userId}! Your ticket has been booked with {flightDetails}. <a href='/MyBookings'>Go To My Bookings</a>";
-
-            
-
-            string SuccessMessage = "SUCCESS";
-
-            
-            return RedirectToAction("Index",new { message = SuccessMessage});
-        }
      
         private string GetFlightDetails(string flightId)
-        {
-            
+        {   
             return $"Flight ID: {flightId}"; 
         }
 
@@ -196,7 +172,7 @@ namespace FlightBooking.Controllers
 
 
 
-
+        
     //[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     //public IActionResult Error()
     //{

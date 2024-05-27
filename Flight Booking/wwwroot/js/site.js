@@ -263,14 +263,14 @@ function handleFormSubmission(event) {
     //localStorage.setItem('returnDate', returnDate);
 
     // Update summary with latest form details
-    const selectedClass = document.querySelector(".booking__nav .class-option.selected");
-    if (selectedClass) {
-        handleClassOptionClick(selectedClass);
-    }
+//    const selectedClass = document.querySelector(".booking__nav .class-option.selected");
+//    if (selectedClass) {
+//        handleClassOptionClick(selectedClass);
+//    }
 
-    // Reset the form
-    document.querySelector('form').reset();
-});
+//    // Reset the form
+//    document.querySelector('form').reset();
+//});
 
 //// Function to handle page load
 //document.addEventListener("DOMContentLoaded", function ()

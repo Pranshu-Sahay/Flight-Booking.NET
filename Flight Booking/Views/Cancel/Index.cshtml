@@ -15,8 +15,8 @@
         <table>
             <thead>
                 <tr>
-                    <th>User Id</th> 
-                    <th>Username</th> 
+                    <th>Booking Id</th>             
+                    <th>Username</th>             
                     <th>Flight Id</th> 
                     <th>Phone Number</th>
                     <th>Email Id</th>
@@ -26,24 +26,43 @@
                     <th>Travellers</th>
                     <th>Departure Date</th>
                     <th>Price</th>
+                    <th>Journey Duration</th>
                     <th>Action</th>
+                    <th>Status</th>
                 </tr>
 
                 @foreach (var item in Model.FbookingFinalPsList)
                 {
-                    <tr>
-                        <td>@item.UserId</td>
-                        <td>@item.Username</td>
-                        <td>@item.FlightId</td>
-                        <td>@item.PhoneNo</td>
-                        <td>@item.Email</td>
-                        <td>@item.Dob</td>
-                        <td>@item.DepartureAp</td>
-                        <td>@item.DestinationAp/td>
-                        <td>@item.Traveller</td>
-                        <td>@item.JourneyDate</td>
-                        <td>@item.Price</td>
-                    </tr>
+                   <tr>
+                    <td>@item.BookingId</td>
+                    <td>@item.Username</td>
+                    <td>@item.FlightId</td>
+                    <td>@item.PhoneNo</td>
+                    <td>@item.Email</td>
+                    <td>@item.Dob</td>
+                    <td>@item.DepartureAp</td>
+                    <td>@item.DestinationAp/td>
+                    <td>@item.Traveller</td>
+                    <td>@item.JourneyDate</td>
+                    <td>@item.Price</td>
+                    <td>@item.JourneyDuration</td>
+                    <td class="text-center">
+                        <form asp-controller="Cancel" asp-action="doCancel" asp-route-id="@item.BookingId" asp-route-id="@item.Username" asp-route-id="@item.PhoneNo" asp-route-id="@item.Dob" asp-route-id="@item.Traveller" asp-route-id="@item.JourneyDate" asp-route-id="@item.Price">
+                            <input type="hidden" name="flightId" value="@item.FlightId" asp-for="@Model.FlightId" />
+                            <button type="submit" class="book-btn">Cancel</button>
+                        </form>
+                    </td>
+                    <td>
+                        @if (item.BookingStatus == "A")
+                        {
+                            <span style="color: green;">Active</span>
+                        }
+                        else
+                        {
+                            <span style="color: red;">Inactive</span>
+                        }
+                    </td>
+                     </tr>
                 }
                 </thead>
                 <tbody>

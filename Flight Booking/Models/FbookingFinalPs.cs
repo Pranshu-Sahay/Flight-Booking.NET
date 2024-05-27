@@ -7,6 +7,7 @@ namespace FlightBooking.Models
 {
     public class FbookingFinalPs
     {
+        public decimal? BookingId { get; set; }
         public string UserId { get; set; }
         public string Username { get; set; }
         public string FlightId { get; set; }
@@ -18,6 +19,8 @@ namespace FlightBooking.Models
         public decimal? Traveller { get; set; }
         public DateTime? JourneyDate { get; set; }
         public decimal? Price { get; set; }
+        public decimal? JourneyDuration { get; set; }
+        public string BookingStatus { get; set; }
         
     }
 }

@@ -41,7 +41,7 @@
             }
             else
             {
-                <label>Welcome! @Model.Username</label>
+                <label>Welcome! @Model.Username </label>
                 <a asp-controller="Home" asp-action="Logout" class="btn">Logout</a>
             }
         </ul>
@@ -160,7 +160,7 @@
                                 <td>@item.Price</td>
                                 <td>@item.JourneyDuration</td>
                                 <td class="text-center">
-                                    <form asp-controller="Home" asp-action="BookFlight">
+                                    <form asp-controller="Booking" asp-action="Index" asp-route-id="@item.FlightId" asp-route-id="@item.JourneyDate">
                                         <input type="hidden" name="flightId" value="@item.FlightId" asp-for="@Model.FlightId" />
                                         <button type="submit" class="book-btn">Book</button>
                                     </form>
@@ -176,14 +176,9 @@
         </div>
     </section>
 
-    <!-- Your existing HTML code -->
+   
 
-    @if (ViewBag.SuccessMessage != null)
-    {
-        <script>alert('@Html.Raw(ViewBag.SuccessMessage)');</script>
-    }
-
-    <!-- End of your HTML code -->
+  
 
 
     <section class="section__container about__container" id="about">
